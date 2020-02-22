@@ -1,0 +1,27 @@
+version: "2"
+services:
+  web:
+    hostname: web
+    container_name: web
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./proxy.conf:/etc/nginx/conf.d/proxy.conf
+    links:
+      - tomcat1
+      - tomcat2
+
+  tomcat1:
+    hostname: tomcat1
+    container_name: tomcat1
+    image: myapp:v2
+    command: top
+    ports:
+      - "8888:8080"
+  tomcat2:
+    hostname: tomcat2
+    container_name: tomcat2
+    image: myapp:v2
+    ports:
+      - "8889:8080"
